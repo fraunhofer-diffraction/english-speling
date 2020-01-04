@@ -29,27 +29,23 @@
     var text3;
     var timedEvent;
     var counter = 0;
+    var repeat = 2;
     function preload ()
     {
-
-        this.load.image('sky', 'sky.jpeg');
-       
+ 
     }
 
     function create ()
     {
     
-        this.add.image(400, 300, 'sky');
         text1 = this.add.text(10, 10, '', { fill: '#00ff00' });
         text3 = this.add.text(32, 32);
-        timedEvent = this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, repeat: 15 });
+        timedEvent = this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, repeat: repeat });
 
         this.input.mouse.disableContextMenu();
         this.input.on('pointerup', function (pointer) {
-                counter = counter +1
-
-       
-});
+                counter = counter + 1
+        });
     }
     function update ()
 {
@@ -58,13 +54,19 @@
     text1.setText([
         'x: ' + pointer.worldX,
         'y: ' + pointer.worldY,
-        'isDown: ' + pointer.isDown,
+        'счет: ' + counter,
         'Event.repeatCount: ' + timedEvent.repeatCount
     ]);
 }
 function onEvent ()
 {
-   console.log("kek");
+    repeat = repeat - 1;
+    if (repeat == -1){
+        console.log('h');
+        this.input.on('pointerup', function (pointer) {
+            counter = counter - 1
+        });
+    }
 }
     </script>
 
